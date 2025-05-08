@@ -36,10 +36,7 @@ void display_menu(struct menu *m, bool exit_option, bool display_after_action,
   }
 
   for (int i = 0; i < m->option_count; ++i) {
-    printf(
-        COLOR("%d.", GRN)
-        " %s\n",
-        i + 1, m->options[i].label);
+    printf(COLOR("%d.", GRN) " %s\n", i + 1, m->options[i].label);
   }
 
   if (exit_option) {
@@ -53,9 +50,13 @@ void display_menu(struct menu *m, bool exit_option, bool display_after_action,
 
   printf("\n");
 
+  int choice_lower_bound = exit_option ? 0 : 1;
+  int choice_upper_bound = m->option_count;
+
   int choice;
   while (true) {
-    printf("Enter your choice: ");
+    printf("Enter your choice (%d-%d): ", choice_lower_bound,
+           choice_upper_bound);
     scanf("%d", &choice);
 
     if (exit_option && choice == 0) {
