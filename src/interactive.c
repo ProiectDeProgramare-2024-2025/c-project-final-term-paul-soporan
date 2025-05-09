@@ -57,7 +57,12 @@ void display_menu(struct menu *m, bool exit_option, bool display_after_action,
   while (true) {
     printf("Enter your choice (%d-%d): ", choice_lower_bound,
            choice_upper_bound);
-    scanf("%d", &choice);
+    if (scanf("%d", &choice) != 1) {
+      printf("Invalid input. Please enter a number.\n");
+      while (getchar() != '\n') {
+      }
+      continue;
+    }
 
     if (exit_option && choice == 0) {
       break;
